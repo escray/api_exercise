@@ -34,7 +34,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'bootstrap-sass'
+gem 'carrierwave'
+gem 'devise'
 gem 'jquery-rails'
+gem 'mini_magick'
 gem 'rest-client'
 
 group :development, :test do
