@@ -2,14 +2,6 @@
 class Api::V1::TrainsController < ApiController
   def index
     @trains = Train.all
-    render json: {
-      data: @trains.map do |train|
-        {
-          number: train.number,
-          train_url: api_v1_train_url(train.number)
-        }
-      end
-    }
   end
 
   def show
