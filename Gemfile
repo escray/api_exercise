@@ -39,6 +39,7 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'mini_magick'
 gem 'rest-client'
+gem 'will_paginate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution
