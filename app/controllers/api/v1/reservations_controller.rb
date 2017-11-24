@@ -1,6 +1,7 @@
 #
 class Api::V1::ReservationsController < ApiController
   before_action :authenticate_user!, only: [:index]
+  before_action :find_reservation!, only: %i[show update destroy]
 
   def create
     @train = Train.find_by_number!(params[:train_number])
@@ -21,14 +22,12 @@ class Api::V1::ReservationsController < ApiController
   end
 
   def show
-    @reservation = Reservation.find_by_booking_code!(params[:booking_code])
-
     render json: {
       booking_code: @reservation.booking_code,
       train_number: @reservation.train.number,
       seat_number: @reservation.seat_number,
       customer_name: @reservation.customer_name,
-      customre_phone: @reservation.customer_phone
+      customer_phone: @reservation.customer_phone
     }
   end
 
@@ -45,5 +44,27 @@ class Api::V1::ReservationsController < ApiController
         }
       end
     }
+  end
+
+  def update
+    @reservation.update(reservation_params)
+    render json: { message: '更新成功' }
+  end
+
+  def destroy
+    @reservation.destroy
+    render json: {
+      message: '已取消定位'
+    }
+  end
+
+  protected
+
+  def find_reservation!
+    @reservation = Reservation.find_by_booking_code!(params[:booking_code])
+  end
+
+  def reservation_params
+    params.permit(:customer_name, :customer_phone)
   end
 end
