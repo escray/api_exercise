@@ -5,8 +5,15 @@ class Train < ApplicationRecord
 
   mount_uploader :train_logo, TrainLogoUploader
 
+  SEATS = begin
+    (1..1).to_a.map do |series|
+      %w[A B C D F].map do |letter|
+        "#{series}#{letter}"
+      end
+    end
+  end.flatten
+
   def available_seats
-    # TODO: 回传有空的座位
-    %w[1A 1B 1C 1D 1F]
+    SEATS - reservations.pluck(:seat_number)
   end
 end
