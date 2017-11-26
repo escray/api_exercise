@@ -17,10 +17,10 @@ RSpec.describe 'API_V1::Auth', type: :request do
   example 'register failed' do
     post '/api/v1/signup', params: { email: 'test2@example.com' }
     expect(response).to have_http_status(400)
-    expect(response.body).to eq({ :message => 'Failed',
-                                  :errors => {
-                                  :password => ["can't be blank"]
-                                }}.to_json)
+    expect(response.body).to eq({ message: 'Failed',
+                                  errors: {
+                                    password: ["can't be blank"]
+                                  } }.to_json)
   end
 
   before do
@@ -28,13 +28,13 @@ RSpec.describe 'API_V1::Auth', type: :request do
   end
 
   example 'valid login and logout' do
-    post '/api/v1/login', params: { email: @user.email, password: '12345678'}
+    post '/api/v1/login', params: { email: @user.email, password: '12345678' }
 
     expect(response).to have_http_status(200)
     expect(response.body).to eq({
-      :message => 'OK',
-      :auth_token => @user.authentication_token,
-      :user_id => @user.id
+      message: 'OK',
+      auth_token: @user.authentication_token,
+      user_id: @user.id
     }.to_json)
 
     post '/api/v1/logout', params: { auth_token: @user.authentication_token }
@@ -48,7 +48,7 @@ RSpec.describe 'API_V1::Auth', type: :request do
     post '/api/v1/login', params: { email: @user.email, password: 'xxx' }
     expect(response).to have_http_status(401)
     expect(response.body).to eq({
-      :message => 'Email or Password is wrong'
+      message: 'Email or Password is wrong'
     }.to_json)
   end
 end

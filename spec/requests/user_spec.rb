@@ -14,10 +14,10 @@ RSpec.describe 'API_V1::Users', type: :request do
 
     @user.reload
 
-    expect(response.body).to eq( {email: @user.email,
-                                avatar: @user.avatar,
-                                updated_at: @user.updated_at,
-                                created_at: @user.created_at}.to_json)
+    expect(response.body).to eq({ email: @user.email,
+                                  avatar: @user.avatar,
+                                  updated_at: @user.updated_at,
+                                  created_at: @user.created_at }.to_json)
   end
 
   example 'PATCH /me' do
